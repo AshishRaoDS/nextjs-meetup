@@ -1,13 +1,22 @@
 import MeetupDetails from "../../components/meetups/MeetupDetails";
 import { MongoClient, ObjectId } from "mongodb"
+import Head from "next/head"
 
 const MeetupDetailsPage = (props) => {
-  return <MeetupDetails
-    image={props.image}
-    title={props.title}
-    description={props.description}
-    address={props.address}
-  />
+  return (
+    <>
+      <Head>
+        <title>{props.title}</title>
+        <meta name="description" content={props.description} />
+      </Head>
+      <MeetupDetails
+        image={props.image}
+        title={props.title}
+        description={props.description}
+        address={props.address}
+      />
+    </>
+  )
 }
 
 export default MeetupDetailsPage;
@@ -50,6 +59,7 @@ export async function getStaticProps(context) {
 
   return {
     props: {
+      id: selectedMeetup._id.toString(),
       image: selectedMeetup.image,
       title: selectedMeetup.title,
       description: selectedMeetup.description,

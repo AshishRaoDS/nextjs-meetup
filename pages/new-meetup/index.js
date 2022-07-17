@@ -1,6 +1,7 @@
 import axios from "axios"
 import NewMeetupForm from "../../components/meetups/NewMeetupForm"
 import { useRouter } from "next/router"
+import Head from "next/head"
 
 const NewMeetup = () => {
   const router = useRouter()
@@ -18,7 +19,15 @@ const NewMeetup = () => {
 
   }
 
-  return <NewMeetupForm onAddMeetup={newMeetUpHandler} />
+  return (
+    <>
+      <Head>
+        <title>Add new memories</title>
+        <meta name="description" content="Save your new memories forever" />
+      </Head>
+      <NewMeetupForm onAddMeetup={newMeetUpHandler} />
+    </>
+  )
 }
 
 export default NewMeetup;

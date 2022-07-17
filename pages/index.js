@@ -1,5 +1,6 @@
 import MeetupList from "../components/meetups/MeetupList";
 import { MongoClient } from "mongodb"
+import Head from "next/head"
 
 const DUMMY_DATA = [
   {
@@ -27,7 +28,16 @@ const DUMMY_DATA = [
 
 const HomePage = (props) => {
 
-  return <MeetupList meetups={props.meetups} />
+  return (
+    <>
+      <Head>
+        <title>Cherish your memories</title>
+        <meta name="description" content="Finally a place to re-visit your precious time spent with your loved ones" />
+      </Head>
+      <MeetupList meetups={props.meetups} />
+    </>
+  )
+
 
 }
 
