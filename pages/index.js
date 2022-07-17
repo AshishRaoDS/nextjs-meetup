@@ -1,5 +1,5 @@
 import MeetupList from "../components/meetups/MeetupList";
-import Layout from "../components/layout/Layout"
+import { MongoClient } from "mongodb"
 
 const DUMMY_DATA = [
   {
@@ -32,9 +32,24 @@ const HomePage = (props) => {
 }
 
 export async function getStaticProps() {
+  const client = await MongoClient.connect("mongodb+srv://nextjs-user:wu3c1LmGMBscIctZ@cluster0.mbkhkkd.mongodb.net/My-meetups?retryWrites=true&w=majority")
+
+  const db = client.db()
+
+  const meetupsCollection = db.collection("meetups")
+
+  const meetupsFromDB = await meetupsCollection.find().toArray()
+
   return {
     props: {
-      meetups: DUMMY_DATA
+      meetups: meetupsFromDB.map(meetup => (
+        {
+          title: meetup.title,
+          image: meetup.image,
+          address: meetup.address,
+          id: meetup._id.toString()
+        }
+      ))
     },
     revalidate: 10
   }
